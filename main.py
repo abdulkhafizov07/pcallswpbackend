@@ -1,5 +1,6 @@
-from fastapi import FastAPI, WebSocket, WebSocketDisconnect
 from typing import Dict, List
+
+from fastapi import FastAPI, WebSocket, WebSocketDisconnect
 from fastapi.middleware.cors import CORSMiddleware
 
 app = FastAPI()
@@ -13,6 +14,7 @@ app.add_middleware(
 )
 
 rooms: Dict[str, List[WebSocket]] = {}
+
 
 @app.websocket("/vc/{room_id}")
 async def websocket_endpoint(websocket: WebSocket, room_id: str):

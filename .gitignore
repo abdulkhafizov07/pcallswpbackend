@@ -1,5 +1,5 @@
-# Created by https://www.toptal.com/developers/gitignore/api/python,virtualenv,database
-# Edit at https://www.toptal.com/developers/gitignore?templates=python,virtualenv,database
+# Created by https://www.toptal.com/developers/gitignore/api/python,database,git
+# Edit at https://www.toptal.com/developers/gitignore?templates=python,database,git
 
 ### Database ###
 *.accdb
@@ -10,6 +10,21 @@
 *.sqlite3
 *.db-shm
 *.db-wal
+
+### Git ###
+# Created by git for backups. To disable backups in Git:
+# $ git config --global mergetool.keepBackup false
+*.orig
+
+# Created by git when using merge tools for conflicts
+*.BACKUP.*
+*.BASE.*
+*.LOCAL.*
+*.REMOTE.*
+*_BACKUP_*.txt
+*_BASE_*.txt
+*_LOCAL_*.txt
+*_REMOTE_*.txt
 
 ### Python ###
 # Byte-compiled / optimized / DLL files
@@ -134,7 +149,6 @@ celerybeat.pid
 *.sage.py
 
 # Environments
-.env
 .venv
 env/
 venv/
@@ -183,17 +197,8 @@ poetry.toml
 # LSP config files
 pyrightconfig.json
 
-### VirtualEnv ###
-# Virtualenv
-# http://iamzed.com/2009/05/07/a-primer-on-virtualenv/
-[Bb]in
-[Ii]nclude
-[Ll]ib
-[Ll]ib64
-[Ll]ocal
-[Ss]cripts
-pyvenv.cfg
-pip-selfcheck.json
+# End of https://www.toptal.com/developers/gitignore/api/python,database,git
 
-# End of https://www.toptal.com/developers/gitignore/api/python,virtualenv,database
 
+*.local
+test.py
