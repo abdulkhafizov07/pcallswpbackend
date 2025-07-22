@@ -1,13 +1,23 @@
-VENV = env
-PIP = $(VENV)/bin/pip
+
+VENV := env
+PIP := $(VENV)/bin/pip
+BLACK := $(VENV)/bin/black
+ISORT := $(VENV)/bin/isort
+FLAKE8 := $(VENV)/bin/flake8
+PYTEST := $(VENV)/bin/pytest
+UVICORN := $(VENV)/bin/uvicorn
+ALEMBIC := $(VENV)/bin/alembic
 
 .PHONY: build dev install install-dev format lint test clean ci
 
+build-db:
+	$(ALEMBIC) upgrade head
+
 build:
-	$(VENV)/bin/alembic upgrade head
+	docker build -t pcallswp-backend .
 
 dev:
-	$(VENV)/bin/uvicorn main:app --reload
+	$(UVICORN) main:app --reload
 
 install:
 	$(PIP) install -r requirements.txt
@@ -16,14 +26,14 @@ install-dev:
 	$(PIP) install -r requirements.txt -r requirements-dev.txt
 
 format:
-	$(VENV)/bin/black .
-	$(VENV)/bin/isort .
+	$(BLACK) .
+	$(ISORT) .
 
 lint:
-	$(VENV)/bin/flake8 . --count
+	$(FLAKE8) . --count
 
 test:
-	$(VENV)/bin/pytest
+	$(PYTEST)
 
 clean:
 	find . -type d -name "__pycache__" -exec rm -r {} +

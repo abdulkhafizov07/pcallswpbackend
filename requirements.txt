@@ -1,6 +1,5 @@
 fastapi
 uvicorn
-gunicorn
 sqlmodel
 sqlalchemy
 fastapi-users

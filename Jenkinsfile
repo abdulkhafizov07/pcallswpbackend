@@ -4,19 +4,51 @@ pipeline {
     }
 
     stages {
-        stage('Build') {
+        stage('Checkout') {
             steps {
-                echo 'Building..'
+                checkout scm
             }
         }
-        stage('Test') {
+
+        stage('Install Dependencies') {
             steps {
-                echo 'Testing..'
+                sh '''
+                if [ ! -d env ]; then
+                    echo "Creating virtual environment"
+                    python3 -m venv env
+                fi
+                make install-dev
+                '''
             }
         }
-        stage('Deploy') {
+
+        stage('Format & Lint') {
             steps {
-                echo 'Deploying....'
+                sh 'make format lint'
+            }
+        }
+
+        state('Build') {
+            steps {
+                sh 'make build-db build'
+            }
+        }
+
+        state('Test') {
+            steps {
+                sh 'make test'
+            }
+        }
+
+        stage('Clean') {
+            steps  {
+                sh 'make clean'
+            }
+        }
+
+        state('Deploy') {
+            steps {
+                echo "Deploy here"
             }
         }
     }
